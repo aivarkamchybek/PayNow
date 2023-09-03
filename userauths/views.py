@@ -17,7 +17,7 @@ def RegisterView(request):
             return redirect("core:index")
         
     if request.user.is_authenticated:
-        messages.warning(request, f"You are already logged in.")
+        messages.warning(request, f"You are already logged in")
         return redirect("core:index")
 
     else:

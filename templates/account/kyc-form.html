@@ -139,12 +139,12 @@
                                 </ul>
                                 <div class="tab-content mt-40">
                                     <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                                        <form method="POST">
+                                        <form method="POST" enctype="multipart/form-data"> 
                                             {% csrf_token %}
                                         <div class="upload-avatar">
                                             <div class="avatar-left d-flex align-items-center">
                                                 <div class="profile-img">
-                                                    <img src="{{kyc.image.url}}" style = "width: 100px; height: 100px; border-radius: 50%; object-fit: cover;   ="image">
+                                                    <img src="{% static 'assets1/images/default.jpg' %}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
                                                 </div>
                                                 <div class="instraction">
                                                     <!-- <h6>Your Avatar</h6> -->
@@ -218,25 +218,28 @@
                                                 </div>
                                                 <div class="col-md-6" style = "padding-top: 50px;">
                                                     <div class="single-input">
+                                                        <label for ="fname">Select Identity Image</label> 
                                                        {{form.identity_image}}
                                                        {% if kyc.identity_image %}
-                                                        <img src="{{ kyc.identity_image.url }}" style="width: 100%; height: 200px; border-radius: 10px; object-fit: cover; padding-top: 10px;" alt="">
-                                                    {% endif %}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6" style = "padding-top: 50px;">
-                                                    <div class="single-input">
-                                                       {{form.signature}}
-                                                       {% if kyc.signature %}
-                                                        <img src="{{ kyc.signature.url }}" style="width: 100%; height: 200px; border-radius: 10px; object-fit: cover; padding-top: 10px;" alt="">
-                                                    {% endif %}
+                                                       <img src="{{ kyc.identity_image.url }}" style="width: 100%; height: 200px; border-radius: 10px; object-fit: cover; padding-top: 10px;" alt="">
+                                                       {% endif %}
+                                                       </div>
+                                                   </div>
+                                                   <div class="col-md-6" style = "padding-top: 50px;">
+                                                       <div class="single-input">
+                                                        <label for ="fname">Select Identity Image</label>
+
+                                                          {{form.signature}}
+                                                          {% if kyc.signature %}
+                                                           <img src="{{ kyc.signature.url }}" style="width: 100%; height: 200px; border-radius: 10px; object-fit: cover; padding-top: 10px;" alt="">
+                                                       {% endif %}
                                                     </div>
                                                 </div>
                                                 <br><br>
                                                     <!-- <div class="col-md-12">
                                                     <div class="single-input">
                                                         <label for="email">Email</label>
-                                                        <div class="row input-status d-flex align-items-center">
+                                                        <div class="row input-status d-flex align-items-center">100%
                                                             <div class="col-6">
                                                                 <input type="text" id="email" placeholder="alfred6598@gmail.com">
                                                             </div>
