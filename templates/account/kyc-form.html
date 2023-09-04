@@ -144,7 +144,7 @@
                                         <div class="upload-avatar">
                                             <div class="avatar-left d-flex align-items-center">
                                                 <div class="profile-img">
-                                                    <img src="{% static 'assets1/images/default.jpg' %}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
+                                                    <img src="{{kyc.image.url}}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
                                                 </div>
                                                 <div class="instraction">
                                                     <!-- <h6>Your Avatar</h6> -->
@@ -216,6 +216,7 @@
                                                        {{form.identity_type}}
                                                     </div>
                                                 </div>
+                                                <br></br>
                                                 <div class="col-md-6" style = "padding-top: 50px;">
                                                     <div class="single-input">
                                                         <label for ="fname">Select Identity Image</label> 
