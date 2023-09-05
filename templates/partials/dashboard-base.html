@@ -77,7 +77,7 @@
                                                 <div class="text-area">
                                                     <p class="mdr">You received a payment of <b>$134.00</b> from <b>Anna
                                                             Green</b></p>
-                                                    <p class="mdr time-area">09.39AM</p>
+                                                    <p class="mdr time-area">{{n.date}}</p>
                                                 </div>
                                             </a>
                                             <i class="fa-solid fa-caret-right"></i>
@@ -146,6 +146,9 @@
                                     </div>
                                     <ul>
                                         <li class="border-area">
+                                            <a href="/admin"><i class="fas fa-user"></i>Admin</a>
+                                        </li>
+                                        <li class="border-area">
                                             <a href="account.html"><i class="fas fa-cog"></i>Settings</a>
                                         </li>
                                         <li>
@@ -161,7 +164,7 @@
                             <i class="fa-solid fa-xmark"></i>
                         </div>
                         <div class="sidebar-logo">
-                            <a href="dashboard.html"><img src="{% static 'assets/images/logo.png' %}" alt="logo"></a>
+                            <a href="dashboard.html"><img src="{% static 'assets1/images/logo.png' %}" alt="logo"></a>
                         </div>
                         <ul>
                             <li>
@@ -241,9 +244,13 @@
             </div>
         </div>
         <!--Aler start-->
-        <div class="alert alert-success">
-            <strong>Successfull.</strong>
+        {% if messages %}
+            {% for m in messages %}
+        <div class="alert alert-{{m.tags}}">
+            <strong>{{m}}</strong>
         </div>
+            {% endfor %}
+        {% endif %}
         <!--Alert end-->
     </header>
     <!-- header-section end -->
