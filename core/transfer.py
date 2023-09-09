@@ -10,9 +10,14 @@ def search_users_account_number(request):
     query = request.POST.get("account_number")
     if query:
         account = account.filter(
-        Q(account_number=query)
-        )
+        Q(account_number=query) |
+        Q(account_id=query) 
+        ).distinct()
     context = {
         "account": account,
+        "query": query,
     }
     return render(request, "transfer/search-user-by-account-number.html", context)
+
+def AmountTransfer(request, account_numbber):
+    return render(request, "transfer/amount-transfer.html")

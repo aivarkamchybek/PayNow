@@ -291,6 +291,7 @@
                         </div>
                     </form>
                     <div class="user-select">
+                        {% if query %}
                         {% for a in account %}
 
                         <div class="single-user">
@@ -303,6 +304,7 @@
                                     <p>{{a.user.kyc.full_name | title}}</p>
                                     <span class="mdr">{{a.account_number}}</span> <br>
                                     <span class="mdr">{{a.user.email}}</span>
+                                    
                                 </div>
                             </div>
                             <div class="right">
@@ -314,6 +316,7 @@
                             <h4>Account does not exist</h4>
                         </div>
                        {% endfor %}
+                       {% endif %}
                     </div>
                     <div class="footer-area mt-40">
                         <a href="pay.html">Previous Step</a>
@@ -360,6 +363,7 @@
                                         <div class="image-area mt-30 text-center">
                                             <img src="{% static 'assets1/images/user-profile.png' %}" alt="icon">
                                         </div>
+                                       
                                         <form action="#">
                                             <div class="row justify-content-center">
                                                 <div class="col-md-6">
