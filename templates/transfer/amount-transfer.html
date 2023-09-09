@@ -10,7 +10,7 @@
                     <div class="head-area d-flex align-items-center justify-content-between">
                         <h4>Make a Payment</h4>
                         <div class="icon-area">
-                            <img src="assets/images/icon/support-icon.png" alt="icon">
+                            <img src="{% static 'assets1/images/icon/support-icon.png' %}" alt="icon">
                         </div>
                     </div>
                     <div class="choose-recipient">
@@ -22,19 +22,19 @@
                             <div class="single-user">
                                 <div class="left d-flex align-items-center">
                                     <div class="img-area">
-                                        <img src="assets/images/profile-1.png" alt="image">
+                                        <!-- <img src="{{ a.user.kyc.image.url }}" alt="image"> -->
+                                        <img src="{{ account.user.kyc.image.url }}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;"  alt="image">
+    
                                     </div>
                                     <div class="text-area">
-                                        <p>Herman Tran</p>
-                                        <span class="mdr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82cae7f0efe3ecb1b7c2e5efe3ebeeace1edef">[email&#160;protected]</a></span>
+                                        <p>{{ account.user.kyc.full_name|title }}</p>
+                                        <span class="mdr"><b>{{ account.account_number }}</b></span> <br>
+                                        <span class="mdr">{{ account.user.email }}</span>
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-g-tick"></i>
-                                        Choose
-                                    </a>
-                                    <a href="javascript:void(0)">
+                                    
+                                    <a href="{% url 'core:search-account' %}">
                                         <i class="icon-h-edit"></i>
                                         Edit
                                     </a>
