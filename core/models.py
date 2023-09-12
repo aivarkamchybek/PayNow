@@ -24,15 +24,15 @@ TRANSACTION_STATUS = (
 
 
 class Transaction(models.Model):
-    transaction_id = ShortUUIDField(unique=True, length = 15, max_length=20, prefix="TRN")
-
+    transaction_id = ShortUUIDField(unique=True, length=15, max_length=20, prefix="TRN")
+   
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="user")
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     description = models.CharField(max_length=1000, null=True, blank=True)
-    
+   
     reciever = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="reciever")
     sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="sender")
-    
+   
     reciever_account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, related_name="reciever_account")
     sender_account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, related_name="sender_account")
 
@@ -47,4 +47,3 @@ class Transaction(models.Model):
             return f"{self.user}"
         except:
             return f"Transaction"
-    
