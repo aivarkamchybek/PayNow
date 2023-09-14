@@ -75,11 +75,53 @@ def AmountTransferProcess(request, account_number):
     
 
 def TransferConfirmation(request, account_number, transaction_id):
-    account = Account.objects.get(account_number=account_number)
-    transaction = Transaction.objects.get(transaction_id=transaction_id)
+    try:
+        account = Account.objects.get(account_number=account_number)
+        transaction = Transaction.objects.get(transaction_id=transaction_id)
+    except:
+        messages.warning(request, "Transaction does not exist.")
+        return redirect("account:account")
 
     context = {
         "account":account,
         "transaction": transaction
     }
     return render(request, "transfer/transfer-confirmation.html", context)
+
+
+def TransferProcess(request, account_number, transaction_id):
+    account = Account.objects.get(account_number=account_number)
+    transaction=Transaction.objects.get(transaction_id=transaction_id)
+
+    sender = request.user
+    reciever = account.user
+    
+    sender_account = request.user.account
+    reciever_account = account
+
+    completed = False
+    if request.method == "POST":
+        pin_number = request.POST.get("pin-number")
+        print(pin_number)
+
+        if pin_number == sender_account.pin_number:
+            transaction.status = "completed"
+            transaction.save()
+            #remove the amount from account balance
+            sender_account.account_balance -= transaction.amount
+            sender_account.save()
+
+
+            #add the amount that was removed 
+            account.account_balance += transaction.amount
+            account.save()
+
+            messages.success(request, "Transfer Successfull")
+            return redirect("account:account")
+        
+        else:
+            messages.warning(request, "Incorrect Pin")
+            return redirect('core:transfer-confirmation', account.account_number, transaction.transaction_id)
+    else:
+        messages.warning(request, "An Error occured, Try again later")
+        return redirect('account:account')
