@@ -13,5 +13,6 @@ urlpatterns = [
     path("amount-transfer-process/<account_number>/", transfer.AmountTransferProcess, name="amount-transfer-process"),
     path("transfer-confirmation/<account_number>/<transaction_id>", transfer.TransferConfirmation, name="transfer-confirmation"),
     path("transfer-process/<account_number>/<transaction_id>", transfer.TransferProcess, name="transfer-process"),
+    path("transfer-completed/<account_number>/<transaction_id>", transfer.TransferCompleted, name="transfer-completed"),
 
 ]
