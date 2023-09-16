@@ -141,3 +141,4 @@ def TransferCompleted(request, account_number, transaction_id):
         "transaction": transaction
     }
     return render(request, "transfer/transfer-completed.html", context)
+
