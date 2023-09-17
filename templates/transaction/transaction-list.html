@@ -1,0 +1,121 @@
+{% extends "partials/dashboard-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+    <!-- Dashboard Section start -->
+    <section class="dashboard-section body-collapse">
+        <div class="overlay pt-120">
+            <div class="container-fruid">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="section-content">
+                      >
+                            <div class="transactions-area">
+                                <div class="section-text">
+                                    <h5>Transactions</h5>
+                                    <p>Updated every several minutes</p>
+                                </div>
+                                <div class="top-area d-flex align-items-center justify-content-between">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">Sent</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Recieved</button>
+                                        </li>
+                                    </ul>
+                                    <div class="view-all d-flex align-items-center">
+                                        <a href="javascript:void(0)">View All</a>
+                                        <img src="{% static 'assets1/images/icon/right-arrow.png' %}" alt="icon">
+                                    </div>
+                                </div>
+                                <div class="tab-content mt-40">
+                                    <div class="tab-pane fade show active" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name/ Business</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                        <th scope="row">
+                                                            <p>Bangkok Bank</p>
+                                                            <p class="mdr">Withdraw to bank account</p>
+                                                        </th>
+                                                        <td>
+                                                            <p>03:00 PM</p>
+                                                            <p class="mdr">10 Mar 2022</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="inprogress">In Progress</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>-$520</p>
+                                                            <p class="mdr">$3.0</p>
+                                                        </td>
+                                                        <td>
+                                                            <a href="" class="" ><i class="fas fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                             
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name/ Business</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                        <th scope="row">
+                                                            <p>Bangkok Bank</p>
+                                                            <p class="mdr">Withdraw to bank account</p>
+                                                        </th>
+                                                        <td>
+                                                            <p>03:00 PM</p>
+                                                            <p class="mdr">10 Mar 2022</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="inprogress">In Progress</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>-$520</p>
+                                                            <p class="mdr">$3.0</p>
+                                                        </td>
+                                                        <td>
+                                                            <a href="" class="" ><i class="fas fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                               
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Dashboard Section end -->
+    {% endblock content %}
