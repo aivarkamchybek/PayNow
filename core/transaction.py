@@ -16,3 +16,15 @@ def transaction_lists(request):
     }
 
     return render(request, "transaction/transaction-list.html", context)
+
+@login_required
+def transaction_detail(request, transaction_id):
+    transaction = Transaction.objects.get(transaction_id=transaction_id)
+    
+
+    context = {
+        "transaction":transaction,
+      
+    }
+
+    return render(request, "transaction/transaction-detail.html", context)
