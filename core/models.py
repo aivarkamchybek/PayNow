@@ -17,7 +17,7 @@ TRANSACTION_STATUS = (
     ("failed", "failed"),
     ("completed", "completed"),
     ("pending", "pending"),
-    ("processesing", "processesing"),
+    ("processing", "processing"),
     
 )
 

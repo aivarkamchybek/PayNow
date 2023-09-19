@@ -44,28 +44,42 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {% for s in sender_transaction %}
 
+                                              
                                                     <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
                                                         <th scope="row">
-                                                            <p>Bangkok Bank</p>
-                                                            <p class="mdr">Withdraw to bank account</p>
+                                                            <p>{{s.reciever.kyc.full_name | title}}</p>
+                                                            <p class="mdr">{{s.transaction_type |title}}</p>
                                                         </th>
                                                         <td>
-                                                            <p>03:00 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
+                                                            <p>{{s.date | date:"h:i"}}</p>
+                                                            <p class="mdr">{{s.date | date:"d, M, Y"}}</p>
                                                         </td>
                                                         <td>
-                                                            <p class="inprogress">In Progress</p>
+                                                            {% if s.status == 'completed' %}
+                                                                <p class="text-success">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'pending' %}
+                                                                <p class="inprogress">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'failed' %}
+                                                                <p class="danger">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'processing' %}
+                                                                <p class="inprogress">{{s.status | title}}</p>
+                                                            {% endif %}
                                                         </td>
                                                         <td>
-                                                            <p>-$520</p>
-                                                            <p class="mdr">$3.0</p>
+                                                            <p>-${{s.amount | intcomma}}</p>
+                                                            
                                                         </td>
                                                         <td>
                                                             <a href="" class="" ><i class="fas fa-eye"></i></a>
                                                         </td>
                                                     </tr>
-                                             
+                                                    {% endfor %}
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -83,27 +97,38 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Bangkok Bank</p>
-                                                            <p class="mdr">Withdraw to bank account</p>
-                                                        </th>
+                                                    {% for s in reciever_transaction %}
+                                                        <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                            <th scope="row">
+                                                                <p>{{s.reciever.kyc.full_name | title}}</p>
+                                                                <p class="mdr">{{s.transaction_type |title}}</p>
+                                                            </th>
+                                                            <td>
+                                                                <p>{{s.date | date:"h:i"}}</p>
+                                                                <p class="mdr">{{s.date | date:"d, M, Y"}}</p>
+                                                            </td>
                                                         <td>
-                                                            <p>03:00 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
+                                                            {% if s.status == 'completed' %}
+                                                                <p class="text-success">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'pending' %}
+                                                                <p class="inprogress">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'failed' %}
+                                                                <p class="danger">{{s.status | title}}</p>
+                                                            {% endif %}
+                                                            {% if s.status == 'processing' %}
+                                                                <p class="inprogress">{{s.status | title}}</p>
+                                                            {% endif %}
                                                         </td>
                                                         <td>
-                                                            <p class="inprogress">In Progress</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>-$520</p>
-                                                            <p class="mdr">$3.0</p>
+                                                            <p>+${{s.amount | intcomma}}</p>
                                                         </td>
                                                         <td>
                                                             <a href="" class="" ><i class="fas fa-eye"></i></a>
                                                         </td>
-                                                    </tr>
-                                               
+                                                        </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>
