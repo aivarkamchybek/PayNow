@@ -43,12 +43,12 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{% url 'core:amount-transfer-process' account.account_number %}" method="POST">
+                    <form action="{% url 'core:amount-request-process' account.account_number %}" method="POST">
                         {% csrf_token %}
                         <div class="send-banance">
                             <span class="mdr">You Request</span>
                             <div class="input-area">
-                                <input class="xxlr"  placeholder="Enter Amount Request" type="number" name = "amount-send" id = "amount-send">
+                                <input class="xxlr"  placeholder="Enter Amount Request" type="number" name = "amount-request" id = "amount-send">
                                 <select>
                                     <option value="1">USD</option>
                                     <option value="2">USD</option>
