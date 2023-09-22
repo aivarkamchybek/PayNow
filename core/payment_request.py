@@ -64,9 +64,17 @@ def AmountRequestProcess(request, account_number):
         )
         new_request.save()
         transaction_id = new_request.transaction_id
-        return redirect("core:request-confirmation", account.account_number, transaction_id)
+        return redirect("core:amount-request-confirmation", account.account_number, transaction_id)
     else:
         messages.warning(request, "Error Occured, try again later.")
         return redirect("account:dashboard")
 
+def AmountRequestConfirmation(request, account_number, transaction_id):
+    account = Account.objects.get(account_number=account_number)
+    transaction = Transaction.objects.get(transaction_id=transaction_id)
+    context = {
+        "account":account,
+        "transaction":transaction,
+    }
 
+    return render(request, "payment_request/amount-request-confirmation.html", context)
