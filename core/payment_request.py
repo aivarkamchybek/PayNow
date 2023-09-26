@@ -116,3 +116,34 @@ def settlement_confirmation(request, account_number, transaction_id):
     }
     
     return render(request, "payment_request/settlement-confirmation.html", context)
+
+def settlement_processing(request, account_number, transaction_id):
+    account = Account.objects.get(account_number=account_number)
+    transaction = Transaction.objects.get(transaction_id=transaction_id)
+
+    sender = request.user
+    sender_account = request.user.account ## me
+
+    if request.method == "POST":
+        pin_number = request.POST.get("pin-number")
+        if pin_number == sender_account.pin_number:
+            if sender_account.account_balance <= 0 or sender_account.account_balance < transaction.amount:
+                messages.warning(request, "Insufficient Funds, fund your account and try again.")
+            else:
+                sender_account.account_balance -= transaction.amount
+                sender_account.save()
+
+                account.account_balance += transaction.amount
+                account.save()
+
+                transaction.status = "request_settled"
+                transaction.save()
+
+                messages.success(request, f"Settled to {account.user.kyc.full_name} was succcessful.")
+                return redirect("account:dashboard")
+        else:
+            messages.warning(request, "Incorrect Pin")
+            return redirect("core:settlement-confirmation", account.account_number, transaction.transaction_id)
+    else:
+            messages.warning(request, "Error Occured")
+            return redirect("account:dashboard")
