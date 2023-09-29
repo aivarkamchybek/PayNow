@@ -167,11 +167,4 @@ def DeletePaymentRequest(request, account_number, transaction_id):
     if request.user == transaction.user:
         transaction.delete()
         messages.success(request, "Payment Request Deleted Successfully")
-        return redirect("core:transaction")
-
-    context = {
-        "account":account,
-        "transaction":transaction,
-    }
-    
-    return render(request, "payment_request/delete-payment-request.html", context)
+        return redirect("core:transactions")
