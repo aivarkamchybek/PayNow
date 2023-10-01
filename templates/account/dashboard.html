@@ -18,9 +18,14 @@
                             <div class="acc-details">
                                 <div class="top-area">
                                     <div class="left-side">
-                                        <h5>{{kyc.full_name | title}}!</h5>
-                                        <h2>${{account.account_balance | intcomma}}</h2>
-                                        <!-- <h5 class="receive">Last Received <span>$25,700.00</span></h5> -->
+                                        <h5>Hi, {{kyc.full_name|title}}!</h5>
+                                        <h2>${{account.account_balance|intcomma}}</h2>
+                                        
+                                        {% for recent_recieved_transfer in recent_recieved_transfer %}
+                                        <h5 class="receive">Last Received <span>${{recent_recieved_transfer.amount|intcomma}}</span></h5>
+                                            
+                                        {% endfor %}
+                                            
                                     </div>
                                     <div class="right-side">
                                         <div class="right-top">
@@ -39,17 +44,21 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <!-- <div class="right-bottom">
-                                            <h4>$30,700.00</h4>
-                                            <h5>Payouts</h5>
-                                        </div> -->
+                                        <div class="right-bottom">
+                                            
+                                            {% for recent_transfer in recent_transfer %}
+                                                <h4><small>${{recent_transfer.amount|intcomma}}</small></h4>
+                                            {% endfor %}
+                                            <h5><small>Recent Transfer</small></h5>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="bottom-area">
                                     <div class="left-side">
                                         <a href="{% url 'core:search-account' %}" class="cmn-btn">Transfer Money</a>
-                                        <a href="deposit-money.html" class="cmn-btn">Add Money</a>
-                                        <a href="withdraw-money-step-1.html" class="cmn-btn">Withdraw</a>
+                                        <a href="{% url 'core:request-search-account' %}" class="cmn-btn">Receive Money</a>
+                                        <a href="withdraw-money-step-1.html" class="cmn-btn">All Cards</a>
                                     </div>
                                     <div class="right-side">
                                         <div class="dropdown-area">
@@ -57,16 +66,13 @@
                                                 <img src="{% static 'assets1/images/icon/option.png' %}" alt="icon">
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="recipients.html">Recipients</a></li>
-                                                <li><a class="dropdown-item" href="receive-step-1.html">Request Money</a></li>
-                                                <li><a class="dropdown-item" href="pay-step-1.html">Send Money</a></li>
-                                                <li><a class="dropdown-item" href="pay-step-1.html">Bill Pay</a></li>
+                                                
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="transactions-area mt-40">
+                            <div class="transactions-area">
                                 <div class="section-text">
                                     <h5>Transactions</h5>
                                     <p>Updated every several minutes</p>
@@ -74,14 +80,20 @@
                                 <div class="top-area d-flex align-items-center justify-content-between">
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">Latest</button>
+                                            <button class="nav-link active" id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">Sent</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Upcoming</button>
+                                            <button class="nav-link" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Received</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="sender-request-tab" data-bs-toggle="tab" data-bs-target="#sender-request" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Sent Requests</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="reciever-request-tab" data-bs-toggle="tab" data-bs-target="#reciever-request" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Received Requests</button>
                                         </li>
                                     </ul>
                                     <div class="view-all d-flex align-items-center">
-                                        <a href="javascript:void(0)">View All</a>
+                                        <a href="{% url 'core:transactions' %}">View All</a>
                                         <img src="{% static 'assets1/images/icon/right-arrow.png' %}" alt="icon">
                                     </div>
                                 </div>
@@ -95,112 +107,45 @@
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    
+                                                    {% for s in sender_transaction %}
+                                                        <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                            <th scope="row">
+                                                                <p>{{s.reciever.kyc.full_name|title}}</p>
+                                                                <p class="mdr">{{s.transaction_type|title}}</p>
+                                                            </th>
+                                                            <td>
+                                                                <p><small>{{s.date|date:"h:i"}}</small></p>
+                                                                <p class="mdr">{{s.date|date:"d M, Y"}}</p>
+                                                            </td>
+                                                            <td>
+                                                                {% if s.status == 'completed' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'pending' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'failed' %}
+                                                                    <p class="danger">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                <p>-${{s.amount|intcomma}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{% url 'core:transaction-detail' s.transaction_id %}" class=""><i class="fas fa-eye"></i></a>
 
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Bangkok Bank</p>
-                                                            <p class="mdr">Withdraw to bank account</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>03:00 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="inprogress">In Progress</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>-$520</p>
-                                                            <p class="mdr">$3.0</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Envato Pty Ltd</p>
-                                                            <p class="mdr">Marketplace Payment Received</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>04:30 PM</p>
-                                                            <p class="mdr">01 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>+$450</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Mailchimp</p>
-                                                            <p class="mdr">Subscription Service Payment</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>01:15 PM</p>
-                                                            <p class="mdr">25 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>-$100</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Facebook Ads</p>
-                                                            <p class="mdr">Ads Service</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>07:05 PM</p>
-                                                            <p class="mdr">15 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="pending">Pending</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>$200</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Upwork Escow Inc</p>
-                                                            <p class="mdr">Payment payment</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>04:02 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>$450</p>
-                                                            <p class="mdr">$.5</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Ron Stewart</p>
-                                                            <p class="mdr">Payment Refund</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>11:00 PM</p>
-                                                            <p class="mdr">21 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="cancelled">Cancelled</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>+$450</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -214,111 +159,188 @@
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Bangkok Bank</p>
-                                                            <p class="mdr">Withdraw to bank account</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>03:00 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="inprogress">In Progress</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>-$520</p>
-                                                            <p class="mdr">$3.0</p>
-                                                        </td>
+                                                    
+                                                    {% for s in reciever_transaction %}
+                                                        <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                            <th scope="row">
+                                                                <p>{{s.sender.kyc.full_name|title}}</p>
+                                                                <p class="mdr">{{s.transaction_type|title}}</p>
+                                                            </th>
+                                                            <td>
+                                                                <p><small>{{s.date|date:"h:i"}}</small></p>
+                                                                <p class="mdr">{{s.date|date:"d M, Y"}}</p>
+                                                            </td>
+                                                            <td>
+                                                                {% if s.status == 'completed' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'pending' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'failed' %}
+                                                                    <p class="danger">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                <p>+${{s.amount|intcomma}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{% url 'core:transaction-detail' s.transaction_id %}" class=""><i class="fas fa-eye"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="sender-request" role="tabpanel" aria-labelledby="sender-request-tab">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name/ Business</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
                                                     </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Envato Pty Ltd</p>
-                                                            <p class="mdr">Marketplace Payment Received</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>04:30 PM</p>
-                                                            <p class="mdr">01 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>+$450</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                    {% for s in request_sender_transaction %}
+                                                        <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                            <th scope="row">
+                                                                <p>{{s.reciever.kyc.full_name|title}}</p>
+                                                                <p class="mdr">{{s.transaction_type|title}}</p>
+                                                            </th>
+                                                            <td>
+                                                                <p><small>{{s.date|date:"h:i"}}</small></p>
+                                                                <p class="mdr">{{s.date|date:"d M, Y"}}</p>
+                                                            </td>
+                                                            <td>
+                                                                {% if s.status == 'completed' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'pending' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'failed' %}
+                                                                    <p class="danger">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_sent' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_settled' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                <p>+${{s.amount|intcomma}}</p>
+                                                            </td>
+                                                            <td>
+                                                                {% if s.status == "request_sent" %}
+                                                                <a href="{% url 'core:transaction-detail' s.transaction_id %}" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
+                                                                <a href="{% url 'core:delete-request' s.sender.account.account_number s.transaction_id %}" class=" btn btn-danger"> <i class="fas fa-x"></i> Delete</a>
+                                                                {% endif %}
+
+                                                                {% if s.status == "request_processing" %}
+                                                                <a href="{% url 'core:transaction-detail' s.transaction_id %}" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
+                                                                <a href="{% url 'core:delete-request' s.sender.account.account_number s.transaction_id %}" class=" btn btn-danger"> <i class="fas fa-x"></i> Delete</a>
+                                                                {% endif %}
+
+                                                                {% if s.status == "request_settled" %}
+                                                                <a class="btn btn-success"><i class="fas fa-check-circle"></i> Settled</a>
+                                                                {% endif %}
+
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="reciever-request" role="tabpanel" aria-labelledby="reciever-request-tab">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name/ Business</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Action</th>
                                                     </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Mailchimp</p>
-                                                            <p class="mdr">Subscription Service Payment</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>01:15 PM</p>
-                                                            <p class="mdr">25 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>-$100</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Facebook Ads</p>
-                                                            <p class="mdr">Ads Service</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>07:05 PM</p>
-                                                            <p class="mdr">15 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="pending">Pending</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>$200</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Upwork Escow Inc</p>
-                                                            <p class="mdr">Payment payment</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>04:02 PM</p>
-                                                            <p class="mdr">10 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="completed">Completed</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>$450</p>
-                                                            <p class="mdr">$.5</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
-                                                        <th scope="row">
-                                                            <p>Ron Stewart</p>
-                                                            <p class="mdr">Payment Refund</p>
-                                                        </th>
-                                                        <td>
-                                                            <p>11:00 PM</p>
-                                                            <p class="mdr">21 Mar 2022</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="cancelled">Cancelled</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>+$450</p>
-                                                            <p class="mdr">No Fees</p>
-                                                        </td>
-                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                    {% for s in request_reciever_transaction %}
+                                                        <tr data-bs-toggle="modal" data-bs-target="#transactionsMod">
+                                                            <th scope="row">
+                                                                <p>{{s.sender.kyc.full_name|title}}</p>
+                                                                <p class="mdr">{{s.transaction_type|title}}</p>
+                                                            </th>
+                                                            <td>
+                                                                <p><small>{{s.date|date:"h:i"}}</small></p>
+                                                                <p class="mdr">{{s.date|date:"d M, Y"}}</p>
+                                                            </td>
+                                                            <td>
+                                                                {% if s.status == 'completed' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'pending' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'failed' %}
+                                                                    <p class="danger">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_sent' %}
+                                                                <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_settled' %}
+                                                                    <p class="text-success">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                                {% if s.status == 'request_processing' %}
+                                                                    <p class="inprogress">{{s.status|title}}</p>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                <p>+${{s.amount|intcomma}}</p>
+                                                            </td>
+                                                            <td>
+                                                                
+                                                                {% if s.status == "request_sent" %}
+                                                                    <a href="{% url 'core:settlement-confirmation' s.sender.account.account_number s.transaction_id %}" class="btn btn-primary"><i class="fas fa-check-circle"></i> Settle</a>
+                                                                    <a href="{% url 'core:transaction-detail' s.transaction_id %}" class=" btn btn-danger"> <i class="fas fa-x"></i> Cancel</a>
+                                                                {% endif %}
+
+                                                                {% if s.status == "request_settled" %}
+                                                                    <a href="" class="btn btn-success"><i class="fas fa-check-circle"></i> Settled</a>
+                                                                {% endif %}
+                                                                    
+                                                            </td>
+                                                        </tr>
+                                                    {% empty %}
+                                                    <li>No Received Requests</li>
+                                                    {% endfor %}
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -337,42 +359,67 @@
                                             <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="{% static 'assets1/images/icon/option.png' %}" alt="icon">
                                             </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="account.html">Update</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Virtual card</a></li>
-                                            </ul>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
-                                        <div class="single-card">
-                                            <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#cardMod">
-                                                <img src="{% static 'assets1/images/visa-card.png' %}" alt="image" class="w-100">
-                                            </button>
+                                            {% for c in credit_card %}
+                                           
+                                                <div class="col-12">
+                                                    <div class="card__main">
+                                                        <div class="{% if c.card_type == 'verve' %}Front_card{% endif %}    {% if c.card_type == 'master' %}masterCard{% endif %}    {% if c.card_type == 'visa' %}visaCard{% endif %}">
+                                                        <div class="top_card">
+                                                            <span class="visa">{{c.card_type|upper}}</span>
+                                                            <div class="logo">
+                                                                <img src="{% static 'assets1/images/logo.png' %}" class="logo" alt="logo">
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="middle_card">
+                                                            <span class="chip"></span>
+                                                            <div class="card_number">{{c.number}}</div>
+                                                        </div>
+                                                        <div class="bottom_card">
+                                                            <div class="card_info">
+                                                            <div class="card_holder_name">${{c.amount|intcomma}}</div>
+                                                            <div class="card_holder_name">{{c.name}}</div>
+                                                            </div>
+                                                            <div class="card_info">
+                                                            <div class="card_holder_info">
+                                                                <span class="expire_month" >{{c.month}}</span>
+                                                                <span class="slash">/</span>
+                                                                <span class="expire_year">{{c.year}}</span>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="back_card">
+                                                        <div class="top_card">
+                                                            <span class="black_strip"></span>
+                                                            <div class="cvc_strip">
+                                                            <span class="cvc_number">000</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bottom_card">
+                                                            <div class="flex">
+                                                            <span class="sticker"></span>
+                                                            <div class="logo1">
+                                                                <span></span>
+                                                                <span></span>
+                                                                <span></span>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                        {% endfor %}
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="single-card">
-                                            <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#cardMod">
-                                                <img src="{% static 'assets1/images/paylio-card.png' %}" alt="image" class="w-100">
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="single-card">
-                                            <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#cardMod">
-                                                <img src="{% static 'assets1/images/paypal-card.png' %}" alt="image" class="w-100">
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="single-card">
-                                            <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#cardMod">
-                                                <img src="{% static 'assets1/images/blockchain-card.png' %}" alt="image" class="w-100">
-                                            </button>
-                                        </div>
-                                    </div>
+                                </div>
+                               
                                     <div class="col-6">
                                         <div class="single-card">
                                             <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#addcardMod">

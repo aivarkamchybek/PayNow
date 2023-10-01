@@ -4,6 +4,7 @@ from account.forms import KYCForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from core.forms import CreditCardForm
+from core.models import CreditCard
 
 # @login_required
 
@@ -69,6 +70,7 @@ def dashboard(request):
         
         account = Account.objects.get(user=request.user)
         # form = CreditCardForm()
+        credit_card = CreditCard.objects.filter(user=request.user)
 
         if request.method == "POST":
             form = CreditCardForm(request.POST)
@@ -92,5 +94,6 @@ def dashboard(request):
         "kyc":kyc,
         "account":account,
         "form":form,
+        "credit_card":credit_card,
     }
     return render(request, "account/dashboard.html", context)
