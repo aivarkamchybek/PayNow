@@ -364,63 +364,62 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                            {% for c in credit_card %}
-                                           
-                                                <div class="col-12">
-                                                    <div class="card__main">
-                                                        <div class="{% if c.card_type == 'verve' %}Front_card{% endif %}    {% if c.card_type == 'master' %}masterCard{% endif %}    {% if c.card_type == 'visa' %}visaCard{% endif %}">
-                                                        <div class="top_card">
-                                                            <span class="visa">{{c.card_type|upper}}</span>
-                                                            <div class="logo">
-                                                                <img src="{% static 'assets1/images/logo.png' %}" class="logo" alt="logo">
-    
-                                                            </div>
+                                    
+                                    
+                                    {% for c in credit_card %}
+                                        <a href="{% url 'core:card-detail' c.card_id %}">
+                                            <div class="col-12">
+                                                <div class="card__main">
+                                                    <div class="{% if c.card_type == 'verve' %}Front_card{% endif %}    {% if c.card_type == 'master' %}masterCard{% endif %}    {% if c.card_type == 'visa' %}visaCard{% endif %}">
+                                                    <div class="top_card">
+                                                        <span class="visa">{{c.card_type|upper}}</span>
+                                                        <div class="logo">
+                                                            <img src="{% static 'assets1/images/logo.png' %}" class="logo" alt="logo">
+
                                                         </div>
-                                                        <div class="middle_card">
-                                                            <span class="chip"></span>
-                                                            <div class="card_number">{{c.number}}</div>
+                                                    </div>
+                                                    <div class="middle_card">
+                                                        <span class="chip"></span>
+                                                        <div class="card_number">{{c.number}}</div>
+                                                    </div>
+                                                    <div class="bottom_card">
+                                                        <div class="card_info">
+                                                        <div class="card_holder_name">${{c.amount|intcomma}}</div>
+                                                        <div class="card_holder_name">{{c.name}}</div>
                                                         </div>
-                                                        <div class="bottom_card">
-                                                            <div class="card_info">
-                                                            <div class="card_holder_name">${{c.amount|intcomma}}</div>
-                                                            <div class="card_holder_name">{{c.name}}</div>
-                                                            </div>
-                                                            <div class="card_info">
-                                                            <div class="card_holder_info">
-                                                                <span class="expire_month" >{{c.month}}</span>
-                                                                <span class="slash">/</span>
-                                                                <span class="expire_year">{{c.year}}</span>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                        <div class="back_card">
-                                                        <div class="top_card">
-                                                            <span class="black_strip"></span>
-                                                            <div class="cvc_strip">
-                                                            <span class="cvc_number">000</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bottom_card">
-                                                            <div class="flex">
-                                                            <span class="sticker"></span>
-                                                            <div class="logo1">
-                                                                <span></span>
-                                                                <span></span>
-                                                                <span></span>
-                                                            </div>
-                                                            </div>
+                                                        <div class="card_info">
+                                                        <div class="card_holder_info">
+                                                            <span class="expire_month" >{{c.month}}</span>
+                                                            <span class="slash">/</span>
+                                                            <span class="expire_year">{{c.year}}</span>
                                                         </div>
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    <div class="back_card">
+                                                    <div class="top_card">
+                                                        <span class="black_strip"></span>
+                                                        <div class="cvc_strip">
+                                                        <span class="cvc_number">000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bottom_card">
+                                                        <div class="flex">
+                                                        <span class="sticker"></span>
+                                                        <div class="logo1">
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                 </div>
-                                            
-                                        {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                    <div class="col-6">
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                    
+                                    <div class="col-4">
                                         <div class="single-card">
                                             <button type="button" class="reg w-100" data-bs-toggle="modal" data-bs-target="#addcardMod">
                                                 <img src="{% static 'assets1/images/add-new.png' %}" alt="image" class="w-100">
@@ -445,65 +444,50 @@
                             </div>
                             <div class="single-item">
                                 <div class="section-text d-flex align-items-center justify-content-between">
-                                    <h6>Recipients</h6>
+                                    <h6>Notification ({{notifications.count}})</h6>
                                     <div class="view-all d-flex align-items-center">
                                         <a href="javascript:void(0)">View All</a>
                                         <img src="{% static 'assets1/images/icon/right-arrow.png' %}" alt="icon">
                                     </div>
                                 </div>
                                 <ul class="recipients-item">
-                                    <li>
-                                        <p class="left d-flex align-items-center">
-                                            <img src="{% static 'assets1/images/recipients-1.png' %}" alt="icon">
-                                            <span class="info">
-                                                <span>Phil King</span>
-                                            <span>08:00 AM — 19 August</span>
-                                            </span>
-                                        </p>
-                                        <p class="right">
-                                            <span> +$345</span>
-                                            <span>Payment</span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="left d-flex align-items-center">
-                                            <img src="{% static 'assets1/images/recipients-2.png' %}" alt="icon">
-                                            <span class="info">
-                                                <span>Debra Wilson</span>
-                                            <span>08:00 AM — 19 August</span>
-                                            </span>
-                                        </p>
-                                        <p class="right">
-                                            <span class="loss">-$850</span>
-                                            <span>Refund</span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="left d-flex align-items-center">
-                                            <img src="{% static 'assets1/images/recipients-3.png' %}" alt="icon">
-                                            <span class="info">
-                                                <span>Philip Henry</span>
-                                            <span>08:00 AM — 19 August</span>
-                                            </span>
-                                        </p>
-                                        <p class="right">
-                                            <span>+$2.050</span>
-                                            <span>Payment</span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="left d-flex align-items-center">
-                                            <img src="{% static 'assets1/images/recipients-4.png' %}" alt="icon">
-                                            <span class="info">
-                                                <span>Erin Garcia</span>
-                                            <span>08:00 AM — 19 August</span>
-                                            </span>
-                                        </p>
-                                        <p class="right">
-                                            <span> +$900</span>
-                                            <span>Payment</span>
-                                        </p>
-                                    </li>
+                                    {% for n in notifications %}
+                                        <li>
+                                            
+                                            <a href="javascript:void(0)" class="d-flex">
+                                                <div class="text-area">
+                                                    
+                                                    {% if n.notification_type == "Credit Alert" %}
+                                                    <p class="mdr">You received a payment of <b>${{n.amount}}</b></p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Debit Alert" %}
+                                                    <p class="mdr">You sent a payment of <b>${{n.amount}}</b></p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Sent Payment Request" %}
+                                                    <p class="mdr">You sent a <b>payment request</b> of <b>${{n.amount}}</b></p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Recieved Payment Request" %}
+                                                    <p class="mdr">You received a <b>payment request</b> of <b>${{n.amount}}</b></p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Funded Credit Card" %}
+                                                    <p class="mdr">You funded your credit card with <b>${{n.amount}}</b></p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Withdrew Credit Card Funds" %}
+                                                    <p class="mdr">You withdrew <b>${{n.amount}}</b> from your credit card</p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Deleted Credit Card" %}
+                                                    <p class="mdr">You deleted your credit card</p>
+                                                    {% endif %}
+                                                    {% if n.notification_type == "Added Credit Card" %}
+                                                    <p class="mdr">You added a new  credit card</p>
+                                                    {% endif %}
+                                                        
+                                                    <p class="mdr time-area">{{n.date}}</p>
+                                                </div>
+                                            </a>
+                                            <i class="fa-solid fa-caret-right"></i>
+                                        </li>
+                                        {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -778,20 +762,4 @@
         </div>
     </div>
     <!-- Transactions Popup start -->
-
-    <!--==================================================================-->
-    <script src="{% static 'assets1/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets1/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets1/js/jquery-ui.js' %}"></script>
-    <script src="{% static 'assets1/js/plugin/apexcharts.js' %}"></script>
-    <script src="{% static 'assets1/js/plugin/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'assets1/js/plugin/waypoint.min.js' %}"></script>
-    <script src="{% static 'assets1/js/plugin/wow.min.js' %}"></script>
-    <script src="{% static 'assets1/js/plugin/plugin.js' %}"></script>
-    <script src="{% static 'assets1/js/main.js' %}"></script>
-</body>
-
-</html>
-
-
-{% endblock content %}
+    {% endblock content %}
