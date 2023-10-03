@@ -14,3 +14,22 @@ def card_detail(request, card_id):
     }
 
     return render(request, "credit_card/card-detail.html", context)
+
+
+def delete_card(request, card_id):
+    credit_card = CreditCard.objects.get(card_id=card_id, user=request.user)
+
+    account = request.user.account
+
+    if credit_card.amount > 0:
+        account.account_balance += credit_card.amount
+        account.save()
+
+        credit_card.delete()
+        messages.success(request, "Card Deleted Successfull")
+        return redirect("account:dashboard")
+    
+    credit_card.delete()
+    messages.success(request, "Card Deleted Successfull")
+    return redirect("account:dashboard")
+     
