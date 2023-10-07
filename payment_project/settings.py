@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-r8d8ej7gv+vco$6m&w%&#wgu7l3a7k=fik)zphpw99tluu^wd(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["paynow-project.up.railway.app"]
 
 
 # Application definition
