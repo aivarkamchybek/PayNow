@@ -72,4 +72,8 @@ def withdraw_fund(request, card_id):
             credit_card.save()
 
             messages.success(request, "Withdrawal Successfull")
-            return redirect("core:card-detail")
+            return redirect("core:card-detail", credit_card.card_id)
+        else:
+            messages.success(request, "Insufficient Fund")
+            return redirect("core:card-detail", credit_card.card_id)
+
