@@ -94,12 +94,12 @@ WSGI_APPLICATION = 'payment_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("ENGINE"),
-        'NAME': os.environ.get("NAME"),
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': os.environ.get("HOST"),
-        'PORT': os.environ.get("PORT"),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER':'postgres',
+        'PASSWORD': 'jHC9iBSm9JXcX99lBGcd',
+        'HOST': 'containers-us-west-110.railway.app',
+        'PORT': '5872',
     }
 }
 
