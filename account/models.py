@@ -50,9 +50,10 @@ class Account(models.Model):
     kyc_submitted = models.BooleanField(default=False)
     kyc_confirmed = models.BooleanField(default=False)
     recommended_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="recommended_by")
+    review = models.CharField(max_length=100, null=True,blank=True, default="Review")
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-id']
 
     # def __str__(self):
     #     try:
