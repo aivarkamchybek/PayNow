@@ -23,17 +23,17 @@
 :root {
     --body-font: "Jost", sans-serif;
     --body-color: #F7F9FD;
-    --primary-color: #13af6e;
+    --primary-color: #4743c9;
     --secondary-color: #00FE83;
-    --head-color: #0d881e;
+    --head-color: #0c266c;
     --section-primary-color: #f2f3f9;
     --section-color: #f5f6fc;
-    --para-color: #0c8320;
+    --para-color: #0c266c;
     --border-color: #868ea5;
-    --hover-alt-color: #2ba353;
+    --hover-alt-color: #291b6b;
 }
 
-.collapsing {py
+.collapsing {
     transition: 0.3s;
 }
 
@@ -147,16 +147,16 @@ textarea {
 }
 
 ::placeholder {
-    color: rgba(196, 134, 20, 0.502);
+    color: rgba(12, 38, 110, 0.502);
     opacity: 1;
 }
 
 :-ms-input-placeholder {
-    color: rgba(5, 194, 162, 0.502);
+    color: rgba(12, 38, 110, 0.502);
 }
 
 ::-ms-input-placeholder {
-    color: rgba(23, 129, 67, 0.502);
+    color: rgba(12, 38, 110, 0.502);
 }
 
 input::-webkit-outer-spin-button,
