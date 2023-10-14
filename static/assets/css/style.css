@@ -23,14 +23,14 @@
 :root {
     --body-font: "Jost", sans-serif;
     --body-color: #FFFFFF;
-    --primary-color: #4743c9;
+    --primary-color: #0de2bf;
     --secondary-color: #00FE83;
-    --head-color: #0c266c;
+    --head-color: #159220;
     --section-primary-color: #f2f3f9;
     --section-color: #f5f6fc;
-    --para-color: #0c266c;
+    --para-color: #0c863f;
     --border-color: #868ea5;
-    --hover-alt-color: #291b6b;
+    --hover-alt-color: #04b639;
 }
 
 .collapsing {
@@ -147,16 +147,16 @@ textarea {
 }
 
 ::placeholder {
-    color: rgba(12, 38, 110, 0.502);
+    color: rgba(168, 16, 74, 0.502);
     opacity: 1;
 }
 
 :-ms-input-placeholder {
-    color: rgba(12, 38, 110, 0.502);
+    color: rgba(194, 14, 113, 0.502);
 }
 
 ::-ms-input-placeholder {
-    color: rgba(12, 38, 110, 0.502);
+    color: rgba(75, 5, 5, 0.502);
 }
 
 input::-webkit-outer-spin-button,
@@ -425,7 +425,7 @@ label {
 }
 
 *::-webkit-scrollbar-track {
-    background: #00003e;
+    background: #7a0733;
 }
 
 *::-webkit-scrollbar {
@@ -434,7 +434,7 @@ label {
 
 *::-webkit-scrollbar-button,
 *::-webkit-scrollbar-thumb {
-    background-color: #5732c6;
+    background-color: #970519;
 }
 
 .scrollToTop {
@@ -636,7 +636,7 @@ label {
     width: 100%;
     z-index: 999;
     background-color: var(--bs-white);
-    border-bottom: 1px solid #6c6ea6;
+    border-bottom: 1px solid #690d2c;
 }
 
 .header-section.header-fixed {
@@ -735,7 +735,7 @@ label {
     left: 50%;
     transform: translateX(-50%);
     min-width: 220px;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 12px 24px rgba(218, 3, 3, 0.25);
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
@@ -849,8 +849,8 @@ label {
 }
 
 .banner-section .overlay .banner-content .send-money .currency-area .right-side .nice-select:after {
-    border-bottom: 2px solid #0c266c;
-    border-right: 2px solid #0c266c;
+    border-bottom: 2px solid #58051a;
+    border-right: 2px solid #5e0404;
     height: 13px;
     right: 18px;
     top: initial;
@@ -1201,7 +1201,7 @@ label {
     border-radius: 10px;
     background-color: var(--bs-white);
     padding: 60px 60px 54px;
-    box-shadow: 4px 6.928px 24px 0px rgba(106, 105, 194, 0.25);
+    box-shadow: 4px 6.928px 24px 0px rgba(83, 2, 9, 0.25);
 }
 
 .banner-section.inner-banner.career-details .banner-bottom .top-box .left-box {
@@ -2323,7 +2323,7 @@ label {
     border-radius: 30px;
     text-transform: capitalize;
     background-color: var(--bs-white);
-    box-shadow: 2px 3.464px 20px 0px rgba(30, 48, 111, 0.1);
+    box-shadow: 2px 3.464px 20px 0px rgba(12, 201, 75, 0.1);
     color: var(--para-color);
 }
 
@@ -2468,7 +2468,7 @@ label {
     border-radius: 30px;
     text-transform: capitalize;
     background-color: var(--bs-white);
-    box-shadow: 2px 3.464px 20px 0px rgba(30, 48, 111, 0.1);
+    box-shadow: 2px 3.464px 20px 0px rgba(148, 20, 37, 0.1);
     color: var(--para-color);
 }
 
@@ -2589,7 +2589,7 @@ label {
 .blog-section .nav-tabs .cmn-btn {
     border-radius: 10px;
     background-color: var(--bs-white);
-    box-shadow: 2px 3.464px 20px 0px rgba(30, 48, 111, 0.1);
+    box-shadow: 2px 3.464px 20px 0px rgba(6, 122, 45, 0.1);
     color: var(--para-color);
 }
 
