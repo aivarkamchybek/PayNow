@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     #custom apps
     'core',
     'userauths',
-    'account'
+    'account',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +172,28 @@ JAZZMIN_SETTINGS = {
 
     
 }
+
+
+AWS_ACCESS_KEY_ID = "AKIAWH5TT5FMUQ5PQG6F"
+
+AWS_SECRET_ACCESS_KEY = "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"
+
+AWS_STORAGE_BUCKET_NAME = "paynow-project"
+
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+AWS_LOCATION = 'static'
+
+STATIC_LOCATION = 'static'
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
