@@ -13,7 +13,7 @@ def all_cards(request):
         "account":account,
         "credit_card":credit_card,
     }
-    return render(request, "credit_card/all-card.html", context)
+    return render(request, "credit_card/all-cards.html", context)
 
 def card_detail(request, card_id):
     account = Account.objects.get(user=request.user)
