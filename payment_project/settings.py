@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-r8d8ej7gv+vco$6m&w%&#wgu7l3a7k=fik)zphpw99tluu^wd('
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-r8d8ej7gv+vco$6m&w%&#wgu7l3a7k=fik)zphpw99tluu^wd('
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -87,23 +87,23 @@ WSGI_APPLICATION = 'payment_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        "ENGINE": 'django.db.backends.postgresql',
-        "NAME": "railway",
-        "USER":"postgres",
-        "PASSWORD": "jHC9iBSm9JXcX99lBGcd",
-        "HOST": "containers-us-west-110.railway.app",
-        "PORT": 5872,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         "ENGINE": 'django.db.backends.postgresql',
+#         "NAME": "railway",
+#         "USER":"postgres",
+#         "PASSWORD": "jHC9iBSm9JXcX99lBGcd",
+#         "HOST": "containers-us-west-110.railway.app",
+#         "PORT": 5872,
+#     }
+# }
 
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
@@ -174,26 +174,26 @@ JAZZMIN_SETTINGS = {
 }
 
 
-AWS_ACCESS_KEY_ID = "AKIAWH5TT5FMUQ5PQG6F"
+# AWS_ACCESS_KEY_ID = "AKIAWH5TT5FMUQ5PQG6F"
 
-AWS_SECRET_ACCESS_KEY = "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"
+# AWS_SECRET_ACCESS_KEY = "EAeQ2Ro6cI3JcBdSaPwYS0m0+Eq0PI+wLrZ7gDTe"
 
-AWS_STORAGE_BUCKET_NAME = "paynow-project"
+# AWS_STORAGE_BUCKET_NAME = "paynow-project"
 
-AWS_S3_FILE_OVERWRITE = False
+# AWS_S3_FILE_OVERWRITE = False
 
-AWS_DEFAULT_ACL = None
+# AWS_DEFAULT_ACL = None
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-AWS_LOCATION = 'static'
+# AWS_LOCATION = 'static'
 
-STATIC_LOCATION = 'static'
+# STATIC_LOCATION = 'static'
 
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
