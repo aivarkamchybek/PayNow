@@ -12,33 +12,7 @@
                             <img src="{% static 'assets1/images/icon/support-icon.png' %}" alt="icon">
                         </div>
                     </div>
-                    <!-- <div class="choose-recipient">
-                        <div class="step-area">
-                            <span class="mdr">Step 1 of 3</span>
-                            <h5>Choose Recipient</h5>
-                        </div>
-                        <div class="recipient-list">
-                            <button class="my-recipients active">
-                                <span class="icon-area">
-                                    <i class="icon-f-user"></i>
-                                </span>
-                                <span>My Recipients</span>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#recipientsMod">
-                                <span class="icon-area">
-                                    <i class="icon-e-plus"></i>
-                                </span>
-                                <span>New Recipients</span>
-                            </button>
-                            <button>
-                                <span class="icon-area">
-                                    <i class="icon-f-user"></i>
-                                </span>
-                                <span>Send to myself</span>
-                            </button>
-                        </div>
-                        <p class="recipients-item">200 Recipients</p>
-                    </div> -->
+
                     <form  class="flex-fill" method="POST">
                         {% csrf_token %}
                         <div class="form-group d-flex align-items-center">
@@ -162,7 +136,7 @@
                                                         <select>
                                                             <option value="1">Canada</option>
                                                             <option value="2">Japan</option>
-                                                            <option value="3">Germany</option>
+            
                                                         </select>
                                                     </div>
                                                 </div>

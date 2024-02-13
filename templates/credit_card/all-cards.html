@@ -1,0 +1,108 @@
+{% extends 'partials/dashboard-base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content  %}
+
+<!-- Dashboard Section start -->
+<section class="dashboard-section body-collapse">
+    <div class="overlay pt-120">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-11 col-lg-11">
+                    <div class="section-content">
+                        <div class="transactions-popup">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header justify-content-between">
+                                                        <h5>All Credit Cards</h5>
+                                                        <a href="{% url 'account:dashboard' %}"><i class="material-symbols-outlined">arrow_back</i></a>
+                                                    </div>
+                                                    
+                                                    {% for card in credit_card %}
+                                                    <div class="main-content">
+                                                        <div class="row">
+                                                            <div class="col-sm-5 text-center">
+                                                                <div class="icon-area p-3">
+                                                                    <div class="col-12">
+                                                                        <div class="card__main">
+                                                                            <div class="{% if card.card_type == 'verve' %}Front_card{% elif card.card_type == 'master' %}masterCard{% elif card.card_type == 'visa' %}visaCard{% endif %}">
+                                                                                <div class="top_card">
+                                                                                    <span class="visa">{{ card.card_type|upper }}</span>
+                                                                                    <div class="logo">
+                                                                                        <img src="{% static 'assets1/images/logo.png' %}" alt="logo">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="middle_card" style="margin-top: 35px;">
+                                                                                    <span class="chip"></span>
+                                                                                    <div class="card_number">**** **** **** {{ card.number|slice:"-4:" }}</div>
+                                                                                </div>
+                                                                                <div class="bottom_card">
+                                                                                    <div class="card_info">
+                                                                                        <div class="card_holder_name" style="text-align: left;">${{ card.amount|intcomma }}</div>
+                                                                                        <div class="card_holder_name">{{ card.name }}</div>
+                                                                                    </div>
+                                                                                    <div class="card_info">
+                                                                                        <div class="card_holder_info">
+                                                                                            <span class="expire_month">{{ card.month }}</span>
+                                                                                            <span class="slash">/</span>
+                                                                                            <span class="expire_year">{{ card.year }}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="right-area">
+                                                                    <h6>Credit Card Details for {{ card.name|title }}</h6>
+                                                                    <ul class="payment-details">
+                                                                        <li>
+                                                                            <span>Current Amount</span>
+                                                                            <span>${{ card.amount|intcomma }}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Name of holder</span>
+                                                                            <span>{{ card.name|title }}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Card Type</span>
+                                                                            <span>{{ card.card_type|upper }}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Card Number</span>
+                                                                            <span>**** **** **** {{ card.number|slice:"-4:" }}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Expiry Month & Year</span>
+                                                                            <span>{{ card.month }}/{{ card.year }}</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    {% endfor %}
+
+                                                    <div class="modal-footer">
+                                                        <a href="{% url 'account:dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
